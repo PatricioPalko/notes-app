@@ -11,8 +11,24 @@
     {
       "id": "2",
       "title": "Second note",
-      "description": "Example note",
+      "description": "Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London, took a 1914 Cicero translation and scrambled it to make dummy text for Letraset's Body Type sheets. It has survived not only many decades, but also the leap into electronic typesetting, remaining essentially unchanged.",
       "category": "personal",
+      "createdAt": "2026-07-13T10:00:00.000Z",
+      "updatedAt": "2026-07-14T10:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "title": "Lorem Ipsum has been the industry's standard dummy text ever since 1966",
+      "description": "Example note",
+      "category": "work",
+      "createdAt": "2026-07-16T10:00:00.000Z",
+      "updatedAt": "2026-07-16T10:00:00.000Z"
+    },
+    {
+      "id": "4",
+      "title": "Fourth note",
+      "description": "Lorem Ipsum has been the industry's standard dummy text ever since 1966",
+      "category": "work",
       "createdAt": "2026-07-16T10:00:00.000Z",
       "updatedAt": "2026-07-16T10:00:00.000Z"
     }

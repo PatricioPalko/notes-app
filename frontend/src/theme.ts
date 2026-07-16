@@ -25,12 +25,13 @@ export const theme = createTheme({
       color: "#262626",
     },
     h3: {
-      fontSize: "3em",
+      fontSize: "1.1em",
       fontWeight: "600",
       color: "#262626",
     },
     body1: {
       color: "#262626",
+      fontSize: "0.9em",
     },
   },
 });
