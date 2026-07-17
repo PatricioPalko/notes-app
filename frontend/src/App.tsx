@@ -1,4 +1,5 @@
 import { Box, Container, Typography } from "@mui/material";
+import CustomButton from "./features/form/components/CustomButton";
 import NoteList from "./features/notes/components/NoteList";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           A collection of my personal notes.
         </Typography>
         <NoteList />
+        <CustomButton />
       </Container>
     </Box>
   );
