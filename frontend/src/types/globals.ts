@@ -7,7 +7,7 @@ export interface Note {
   id: string;
   title: string;
   description: string;
-  category: string;
+  category: NoteCategory | "";
   createdAt: string;
   updatedAt: string;
 }
@@ -37,15 +37,17 @@ export interface FormOption {
   label: string;
 }
 
-export const NOTE_CATEGORIES: readonly FormOption[] = [
+export const NOTE_CATEGORIES = [
   { value: "work", label: "Work" },
   { value: "personal", label: "Personal" },
   { value: "ideas", label: "Ideas" },
   { value: "other", label: "Other" },
-];
-export type NoteCategory = (typeof NOTE_CATEGORIES)[number];
+] as const satisfies readonly FormOption[];
+
+export type NoteCategory = (typeof NOTE_CATEGORIES)[number]["value"];
 
 export interface NoteFormValues {
+  id: string;
   title: string;
   description: string;
   category: NoteCategory | "";
@@ -58,9 +60,11 @@ export interface NoteFormProps {
   submitLabel?: string;
   onSubmit: (values: NoteFormValues) => void | Promise<void>;
   onCancel?: () => void;
+  isSubmitting?: boolean;
 }
 
 export const EMPTY_VALUES: NoteFormValues = {
+  id: "",
   title: "",
   description: "",
   category: "",

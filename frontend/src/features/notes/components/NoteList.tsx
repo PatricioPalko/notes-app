@@ -1,24 +1,30 @@
+import { Alert, CircularProgress } from "@mui/material";
 import Box from "@mui/material/Box";
-import { useEffect, useState } from "react";
-import { getNotesData } from "../../../helpers/getData";
+import { useGetNotesQuery } from "../../../api/notesApi";
 import type { Note } from "../../../types/globals";
 import NoteCard from "./NoteCard";
 
 export default function NoteList() {
-  const [notes, setNotes] = useState<Note[]>([]);
+  const { data: notes = [], isLoading, isError, refetch } = useGetNotesQuery();
 
-  useEffect(() => {
-    const fetchNotes = async () => {
-      try {
-        const data = await getNotesData();
-        setNotes(data);
-      } catch (error) {
-        console.error("Error fetching notes:", error);
-      }
-    };
+  if (isLoading) {
+    return <CircularProgress />;
+  }
 
-    fetchNotes();
-  }, []);
+  if (isError) {
+    return (
+      <Alert
+        severity="error"
+        action={
+          <button type="button" onClick={() => void refetch()}>
+            Retry
+          </button>
+        }
+      >
+        Notes could not be loaded.
+      </Alert>
+    );
+  }
 
   const sortedNotes = [...notes].sort(
     (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),

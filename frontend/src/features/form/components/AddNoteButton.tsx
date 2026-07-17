@@ -3,10 +3,23 @@ import Add from "@mui/icons-material/Add";
 import { Dialog, DialogContent, DialogTitle, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useState } from "react";
+import { useAddNoteMutation } from "../../../api/notesApi";
+import type { NoteFormValues } from "../../../types/globals";
 import NoteForm from "./Form";
 
-export default function CustomButton() {
+export default function AddNoteButton() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [addNote, { isLoading }] = useAddNoteMutation();
+
+  const handleSubmit = async (values: NoteFormValues): Promise<void> => {
+    try {
+      await addNote(values).unwrap();
+      setIsDialogOpen(false);
+    } catch (error) {
+      console.error("Error to create note:", error);
+    }
+  };
+
   return (
     <>
       <Button
@@ -40,7 +53,11 @@ export default function CustomButton() {
 
       <Dialog
         open={isDialogOpen}
-        onClose={() => setIsDialogOpen(false)}
+        onClose={() => {
+          if (!isLoading) {
+            setIsDialogOpen(false);
+          }
+        }}
         maxWidth="sm"
         fullWidth
       >
@@ -62,18 +79,14 @@ export default function CustomButton() {
           <Close />
         </Button>
 
-        <DialogTitle sx={{ p: 2, color: "text.primary" }}>
+        <DialogTitle sx={{ px: 3.5, py: 2, color: "text.primary" }}>
           Add a new note
         </DialogTitle>
         <DialogContent>
           <NoteForm
             onCancel={() => setIsDialogOpen(false)}
-            onSubmit={async (values) => {
-              const createdAt = new Date().toISOString();
-              const submittedValues = { ...values, createdAt };
-              console.log(submittedValues);
-              setIsDialogOpen(false);
-            }}
+            onSubmit={handleSubmit}
+            isSubmitting={isLoading}
           />
         </DialogContent>
       </Dialog>

@@ -16,7 +16,7 @@ export default function NoteCard({ note }: { note: Note }) {
       ? note.description.substring(0, 200) + "..."
       : note.description;
 
-  const noteCategory = note.category ? note.category : "Uncategorized";
+  const noteCategory = note.category || "Uncategorized";
 
   const noteCreatedDate = new Date(note.createdAt).toLocaleDateString("sk", {
     year: "numeric",
@@ -30,8 +30,7 @@ export default function NoteCard({ note }: { note: Note }) {
     day: "numeric",
   });
 
-  const noteDate =
-    note.createdAt === note.updatedAt ? noteCreatedDate : noteUpdatedDate;
+  const noteDate = !noteUpdatedDate ? noteCreatedDate : noteUpdatedDate;
 
   return (
     <Card

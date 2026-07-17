@@ -40,7 +40,7 @@ export default function NoteForm({
       noValidate
       spacing={2}
       onSubmit={handleSubmit(handleValidSubmit)}
-      sx={{ mt: 2 }}
+      sx={{ mt: 1 }}
     >
       <FormInput
         label="Title"
