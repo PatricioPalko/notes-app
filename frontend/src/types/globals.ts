@@ -82,3 +82,7 @@ export interface NoteDialogProps {
   mode: "edit" | "add";
   onClose: () => void;
 }
+
+export interface NoteListProps {
+  selectedCategories: NoteCategory[];
+}

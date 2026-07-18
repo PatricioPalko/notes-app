@@ -2,11 +2,11 @@ import { Alert, CircularProgress } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useState } from "react";
 import { useGetNotesQuery } from "../../../api/notesApi";
-import type { Note } from "../../../types/globals";
+import type { Note, NoteListProps } from "../../../types/globals";
 import NoteCard from "./NoteCard";
 import NoteDialog from "./NoteDialog";
 
-export default function NoteList() {
+export default function NoteList({ selectedCategories }: NoteListProps) {
   const { data: notes = [], isLoading, isError, refetch } = useGetNotesQuery();
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
 
@@ -29,7 +29,11 @@ export default function NoteList() {
     );
   }
 
-  const sortedNotes = [...notes].sort(
+  const filteredNotes = notes.filter((note: Note) =>
+    selectedCategories.includes(note.category),
+  );
+
+  const sortedNotes = [...filteredNotes].sort(
     (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
   );
 
@@ -44,7 +48,7 @@ export default function NoteList() {
             md: "repeat(3, 1fr)",
           },
           gap: 2,
-          pt: 8,
+          pt: 3,
         }}
       >
         {sortedNotes.map((note: Note) => (

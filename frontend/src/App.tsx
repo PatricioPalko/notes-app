@@ -2,11 +2,15 @@ import { Box, Container, Typography } from "@mui/material";
 import { useState } from "react";
 import AddNoteButton from "./features/form/components/AddNoteButton";
 import NoteDialog from "./features/notes/components/NoteDialog";
+import NoteFilter from "./features/notes/components/NoteFilter";
 import NoteList from "./features/notes/components/NoteList";
+import { NOTE_CATEGORIES, type NoteCategory } from "./types/globals";
 
 function App() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-
+  const [selectedCategories, setSelectedCategories] = useState<NoteCategory[]>(
+    () => NOTE_CATEGORIES.map((category) => category.value),
+  );
   const handleOpenDialog = () => {
     setIsDialogOpen(true);
   };
@@ -24,7 +28,11 @@ function App() {
         <Typography variant="body1">
           A collection of my personal notes.
         </Typography>
-        <NoteList />
+        <NoteFilter
+          selectedCategories={selectedCategories}
+          onChange={setSelectedCategories}
+        />
+        <NoteList selectedCategories={selectedCategories} />
         <AddNoteButton onClick={handleOpenDialog} />
         <NoteDialog
           note={null}
