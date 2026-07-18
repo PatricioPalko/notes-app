@@ -13,7 +13,9 @@ export default function AddNoteButton({ onClick }: { onClick: () => void }) {
           backgroundColor: "text.primary",
           px: 1,
           minWidth: 32,
+          left: "50%",
           bottom: 32,
+          transform: "translateX(-50%)",
           "& svg": {
             width: 20,
             height: 20,

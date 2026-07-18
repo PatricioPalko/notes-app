@@ -45,7 +45,6 @@ export default function NoteFilter({
           control={
             <Checkbox
               checked={allSelected}
-              defaultChecked
               indeterminate={partiallySelected}
               onChange={(_, checked) => handleToggleAll(checked)}
               sx={{
