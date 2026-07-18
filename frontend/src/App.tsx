@@ -1,8 +1,16 @@
 import { Box, Container, Typography } from "@mui/material";
-import NoteList from "./features/notes/components/NoteList";
+import { useState } from "react";
 import AddNoteButton from "./features/form/components/AddNoteButton";
+import NoteDialog from "./features/notes/components/NoteDialog";
+import NoteList from "./features/notes/components/NoteList";
 
 function App() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleOpenDialog = () => {
+    setIsDialogOpen(true);
+  };
+
   return (
     <Box
       sx={{
@@ -17,7 +25,13 @@ function App() {
           A collection of my personal notes.
         </Typography>
         <NoteList />
-        <AddNoteButton />
+        <AddNoteButton onClick={handleOpenDialog} />
+        <NoteDialog
+          note={null}
+          open={isDialogOpen}
+          mode="add"
+          onClose={() => setIsDialogOpen(false)}
+        />
       </Container>
     </Box>
   );

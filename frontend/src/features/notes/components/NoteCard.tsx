@@ -4,10 +4,21 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import type { Note } from "../../../types/globals";
+import { useDeleteNoteMutation } from "../../../api/notesApi";
+import type { NoteCardProps } from "../../../types/globals";
 import NoteButton from "./NoteButton";
 
-export default function NoteCard({ note }: { note: Note }) {
+export default function NoteCard({ note, onEdit }: NoteCardProps) {
+  const [deleteNote] = useDeleteNoteMutation();
+
+  const handleDeleteNote = async (id: string) => {
+    try {
+      await deleteNote(id).unwrap();
+    } catch (error) {
+      console.error("Error to delete note:", error);
+    }
+  };
+
   const noteTitle =
     note.title.length > 40 ? note.title.substring(0, 40) + "..." : note.title;
 
@@ -90,8 +101,11 @@ export default function NoteCard({ note }: { note: Note }) {
           {noteDate}
         </Typography>
         <Box sx={{ display: "flex", gap: 1 }}>
-          <NoteButton icon={<Edit />} />
-          <NoteButton icon={<Delete />} />
+          <NoteButton icon={<Edit />} onClick={() => onEdit(note)} />
+          <NoteButton
+            icon={<Delete />}
+            onClick={() => handleDeleteNote(note.id)}
+          />
         </Box>
       </CardActions>
     </Card>

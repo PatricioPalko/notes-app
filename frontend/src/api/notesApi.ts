@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { Note } from "../types/globals";
+import type { Note, NoteFormValues, UpdateNoteArgs } from "../types/globals";
 
 export const notesApi = createApi({
   reducerPath: "notesApi",
@@ -11,22 +11,29 @@ export const notesApi = createApi({
       query: () => `/notes`,
       providesTags: ["Notes"],
     }),
-    addNote: build.mutation<Note, Note>({
+
+    addNote: build.mutation<Note, NoteFormValues>({
       query: (note) => ({
         url: "/notes",
         method: "POST",
-        body: { ...note, createdAt: new Date().toISOString() },
+        body: {
+          ...note,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        },
       }),
       invalidatesTags: ["Notes"],
     }),
-    updateNote: build.mutation<Note, Note>({
-      query: (note) => ({
-        url: `/notes/${note.id}`,
-        method: "PUT",
-        body: { ...note, updatedAt: new Date().toISOString() },
+
+    updateNote: build.mutation<Note, UpdateNoteArgs>({
+      query: ({ id, values }) => ({
+        url: `/notes/${id}`,
+        method: "PATCH",
+        body: { ...values, updatedAt: new Date().toISOString() },
       }),
       invalidatesTags: ["Notes"],
     }),
+
     deleteNote: build.mutation<Note, string>({
       query: (id) => ({
         url: `/notes/${id}`,

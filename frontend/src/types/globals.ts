@@ -7,7 +7,7 @@ export interface Note {
   id: string;
   title: string;
   description: string;
-  category: NoteCategory | "";
+  category: NoteCategory;
   createdAt: string;
   updatedAt: string;
 }
@@ -47,12 +47,9 @@ export const NOTE_CATEGORIES = [
 export type NoteCategory = (typeof NOTE_CATEGORIES)[number]["value"];
 
 export interface NoteFormValues {
-  id: string;
   title: string;
   description: string;
   category: NoteCategory | "";
-  createdAt: string;
-  updatedAt: string;
 }
 
 export interface NoteFormProps {
@@ -64,10 +61,24 @@ export interface NoteFormProps {
 }
 
 export const EMPTY_VALUES: NoteFormValues = {
-  id: "",
   title: "",
   description: "",
   category: "",
-  createdAt: "",
-  updatedAt: "",
 };
+
+export interface NoteCardProps {
+  note: Note;
+  onEdit: (note: Note) => void;
+}
+
+export interface UpdateNoteArgs {
+  id: string;
+  values: NoteFormValues;
+}
+
+export interface NoteDialogProps {
+  note: Note | null;
+  open: boolean;
+  mode: "edit" | "add";
+  onClose: () => void;
+}

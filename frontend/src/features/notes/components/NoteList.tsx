@@ -1,11 +1,14 @@
 import { Alert, CircularProgress } from "@mui/material";
 import Box from "@mui/material/Box";
+import { useState } from "react";
 import { useGetNotesQuery } from "../../../api/notesApi";
 import type { Note } from "../../../types/globals";
 import NoteCard from "./NoteCard";
+import NoteDialog from "./NoteDialog";
 
 export default function NoteList() {
   const { data: notes = [], isLoading, isError, refetch } = useGetNotesQuery();
+  const [selectedNote, setSelectedNote] = useState<Note | null>(null);
 
   if (isLoading) {
     return <CircularProgress />;
@@ -31,21 +34,29 @@ export default function NoteList() {
   );
 
   return (
-    <Box
-      sx={{
-        display: "grid",
-        gridTemplateColumns: {
-          xs: "1fr",
-          sm: "repeat(2, 1fr)",
-          md: "repeat(3, 1fr)",
-        },
-        gap: 2,
-        pt: 8,
-      }}
-    >
-      {sortedNotes.map((note: Note) => (
-        <NoteCard key={note.id} note={note} />
-      ))}
-    </Box>
+    <>
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: {
+            xs: "1fr",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(3, 1fr)",
+          },
+          gap: 2,
+          pt: 8,
+        }}
+      >
+        {sortedNotes.map((note: Note) => (
+          <NoteCard key={note.id} note={note} onEdit={setSelectedNote} />
+        ))}
+      </Box>
+      <NoteDialog
+        note={selectedNote}
+        open={selectedNote !== null}
+        onClose={() => setSelectedNote(null)}
+        mode="edit"
+      />
+    </>
   );
 }

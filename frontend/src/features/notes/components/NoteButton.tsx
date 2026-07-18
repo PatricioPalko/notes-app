@@ -1,6 +1,12 @@
 import Button from "@mui/material/Button";
 
-export default function NoteButton({ icon }: { icon: React.ReactNode }) {
+export default function NoteButton({
+  icon,
+  onClick,
+}: {
+  icon: React.ReactNode;
+  onClick: () => void;
+}) {
   return (
     <Button
       size="small"
@@ -21,6 +27,7 @@ export default function NoteButton({ icon }: { icon: React.ReactNode }) {
         },
       }}
       variant="outlined"
+      onClick={onClick}
     >
       {icon}
     </Button>
