@@ -6,7 +6,10 @@ import type { Note, NoteListProps } from "../../../types/globals";
 import NoteCard from "./NoteCard";
 import NoteDialog from "./NoteDialog";
 
-export default function NoteList({ selectedCategories }: NoteListProps) {
+export default function NoteList({
+  selectedCategories,
+  searchValue,
+}: NoteListProps) {
   const { data: notes = [], isLoading, isError, refetch } = useGetNotesQuery();
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
 
@@ -29,9 +32,13 @@ export default function NoteList({ selectedCategories }: NoteListProps) {
     );
   }
 
-  const filteredNotes = notes.filter((note: Note) =>
-    selectedCategories.includes(note.category),
-  );
+  const filteredNotes = notes
+    .filter((note: Note) => selectedCategories.includes(note.category))
+    .filter(
+      (note: Note) =>
+        note.title.toLowerCase().includes(searchValue.toLowerCase()) ||
+        note.description.toLowerCase().includes(searchValue.toLowerCase()),
+    );
 
   const sortedNotes = [...filteredNotes].sort(
     (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),

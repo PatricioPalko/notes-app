@@ -1,9 +1,6 @@
 import TextField, { type TextFieldProps } from "@mui/material/TextField";
 
-type FormInputProps = Omit<
-  TextFieldProps,
-  "error" | "helperText" | "slotProps"
-> & {
+type FormInputProps = Omit<TextFieldProps, "error" | "helperText"> & {
   errorMessage?: string;
   maxLength?: number;
   helperText?: string;
@@ -13,6 +10,7 @@ export default function FormInput({
   errorMessage,
   maxLength,
   helperText,
+  slotProps,
   ...props
 }: FormInputProps) {
   return (
@@ -23,7 +21,9 @@ export default function FormInput({
       error={Boolean(errorMessage)}
       helperText={helperText}
       slotProps={{
+        ...slotProps,
         htmlInput: {
+          ...slotProps?.htmlInput,
           maxLength,
         },
       }}

@@ -85,6 +85,7 @@ export interface NoteDialogProps {
 
 export interface NoteListProps {
   selectedCategories: NoteCategory[];
+  searchValue: string;
 }
 
 export interface NoteFilterProps {

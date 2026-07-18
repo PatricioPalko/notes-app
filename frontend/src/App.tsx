@@ -4,6 +4,7 @@ import AddNoteButton from "./features/form/components/AddNoteButton";
 import NoteDialog from "./features/notes/components/NoteDialog";
 import NoteFilter from "./features/notes/components/NoteFilter";
 import NoteList from "./features/notes/components/NoteList";
+import NoteSearch from "./features/notes/components/NoteSearch";
 import { NOTE_CATEGORIES, type NoteCategory } from "./types/globals";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
   const [selectedCategories, setSelectedCategories] = useState<NoteCategory[]>(
     () => NOTE_CATEGORIES.map((category) => category.value),
   );
+  const [searchValue, setSearchValue] = useState<string>("");
   const handleOpenDialog = () => {
     setIsDialogOpen(true);
   };
@@ -28,11 +30,15 @@ function App() {
         <Typography variant="body1">
           A collection of my personal notes.
         </Typography>
+        <NoteSearch searchValue={searchValue} onChange={setSearchValue} />
         <NoteFilter
           selectedCategories={selectedCategories}
           onChange={setSelectedCategories}
         />
-        <NoteList selectedCategories={selectedCategories} />
+        <NoteList
+          selectedCategories={selectedCategories}
+          searchValue={searchValue}
+        />
         <AddNoteButton onClick={handleOpenDialog} />
         <NoteDialog
           note={null}
