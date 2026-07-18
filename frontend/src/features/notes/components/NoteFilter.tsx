@@ -6,12 +6,11 @@ import {
   Typography,
 } from "@mui/material";
 
-import { NOTE_CATEGORIES, type NoteCategory } from "../../../types/globals";
-
-interface NoteFilterProps {
-  selectedCategories: NoteCategory[];
-  onChange: (categories: NoteCategory[]) => void;
-}
+import {
+  NOTE_CATEGORIES,
+  type NoteCategory,
+  type NoteFilterProps,
+} from "../../../types/globals";
 
 export default function NoteFilter({
   selectedCategories,
@@ -49,6 +48,15 @@ export default function NoteFilter({
               defaultChecked
               indeterminate={partiallySelected}
               onChange={(_, checked) => handleToggleAll(checked)}
+              sx={{
+                color: "text.primary",
+                "&.Mui-checked": {
+                  color: "text.primary",
+                },
+                "&.MuiCheckbox-indeterminate": {
+                  color: "text.primary",
+                },
+              }}
             />
           }
         />
@@ -63,6 +71,12 @@ export default function NoteFilter({
                 onChange={(_, checked) =>
                   handleToggleCategory(category.value, checked)
                 }
+                sx={{
+                  color: "text.primary",
+                  "&.Mui-checked": {
+                    color: "text.primary",
+                  },
+                }}
               />
             }
           />

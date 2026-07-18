@@ -86,3 +86,8 @@ export interface NoteDialogProps {
 export interface NoteListProps {
   selectedCategories: NoteCategory[];
 }
+
+export interface NoteFilterProps {
+  selectedCategories: NoteCategory[];
+  onChange: (categories: NoteCategory[]) => void;
+}
