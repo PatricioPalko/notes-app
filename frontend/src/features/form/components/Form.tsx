@@ -22,9 +22,12 @@ export default function NoteForm({
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
+    watch,
   } = useForm<NoteFormValues>({
     defaultValues,
   });
+
+  const description = watch("description") || "";
 
   useEffect(() => {
     reset(defaultValues);
@@ -64,6 +67,9 @@ export default function NoteForm({
         minRows={4}
         maxLength={500}
         errorMessage={errors.description?.message}
+        helperText={
+          errors.description?.message ?? `${description.length} / 500`
+        }
         {...register("description", {
           required: "Description is required",
           maxLength: {

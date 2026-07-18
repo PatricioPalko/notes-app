@@ -1,4 +1,4 @@
-import { Alert, CircularProgress } from "@mui/material";
+import { Alert, CircularProgress, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useState } from "react";
 import { useGetNotesQuery } from "../../../api/notesApi";
@@ -51,9 +51,15 @@ export default function NoteList({ selectedCategories }: NoteListProps) {
           pt: 3,
         }}
       >
-        {sortedNotes.map((note: Note) => (
-          <NoteCard key={note.id} note={note} onEdit={setSelectedNote} />
-        ))}
+        {sortedNotes.length > 0 ? (
+          sortedNotes.map((note: Note) => (
+            <NoteCard key={note.id} note={note} onEdit={setSelectedNote} />
+          ))
+        ) : (
+          <Typography variant="body1" sx={{ textAlign: "left", pl: 1 }}>
+            No notes found for selected categories.
+          </Typography>
+        )}
       </Box>
       <NoteDialog
         note={selectedNote}

@@ -6,11 +6,13 @@ type FormInputProps = Omit<
 > & {
   errorMessage?: string;
   maxLength?: number;
+  helperText?: string;
 };
 
 export default function FormInput({
   errorMessage,
   maxLength,
+  helperText,
   ...props
 }: FormInputProps) {
   return (
@@ -19,7 +21,7 @@ export default function FormInput({
       variant="outlined"
       fullWidth
       error={Boolean(errorMessage)}
-      helperText={errorMessage}
+      helperText={helperText}
       slotProps={{
         htmlInput: {
           maxLength,

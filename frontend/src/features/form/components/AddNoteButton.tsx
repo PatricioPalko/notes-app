@@ -13,6 +13,7 @@ export default function AddNoteButton({ onClick }: { onClick: () => void }) {
           backgroundColor: "text.primary",
           px: 1,
           minWidth: 32,
+          bottom: 32,
           "& svg": {
             width: 20,
             height: 20,
@@ -20,7 +21,6 @@ export default function AddNoteButton({ onClick }: { onClick: () => void }) {
           "&:hover": {
             backgroundColor: "#c10261ff",
           },
-          transform: "translate(-50%, 50%)",
         }}
         variant="contained"
         onClick={onClick}
