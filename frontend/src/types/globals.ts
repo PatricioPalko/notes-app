@@ -69,6 +69,7 @@ export const EMPTY_VALUES: NoteFormValues = {
 export interface NoteCardProps {
   note: Note;
   onEdit: (note: Note) => void;
+  onDelete: (note: Note) => void;
 }
 
 export interface UpdateNoteArgs {
@@ -96,4 +97,10 @@ export interface NoteFilterProps {
 export interface NoteSearchProps {
   searchValue: string;
   onChange: (value: string) => void;
+}
+
+export interface DeleteNoteDialogProps {
+  note: Note | null;
+  open: boolean;
+  onClose: () => void;
 }

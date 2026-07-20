@@ -48,8 +48,8 @@ export default function NoteDialog({
 
       onClose();
     } catch (error) {
-      console.error(isEditMode, error);
       if (isEditMode) {
+        console.error("Failed to update note:", error);
       } else {
         console.error("Failed to add note:", error);
       }

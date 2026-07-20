@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import { useState } from "react";
 import { useGetNotesQuery } from "../../../api/notesApi";
 import type { Note, NoteListProps } from "../../../types/globals";
+import DeleteNoteDialog from "./DeletNoteDialog";
 import NoteCard from "./NoteCard";
 import NoteDialog from "./NoteDialog";
 
@@ -12,6 +13,7 @@ export default function NoteList({
 }: NoteListProps) {
   const { data: notes = [], isLoading, isError, refetch } = useGetNotesQuery();
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
+  const [noteToDelete, setNoteToDelete] = useState<Note | null>(null);
 
   if (isLoading) {
     return <CircularProgress />;
@@ -60,7 +62,12 @@ export default function NoteList({
       >
         {sortedNotes.length > 0 && selectedCategories.length > 0 ? (
           sortedNotes.map((note: Note) => (
-            <NoteCard key={note.id} note={note} onEdit={setSelectedNote} />
+            <NoteCard
+              key={note.id}
+              note={note}
+              onEdit={setSelectedNote}
+              onDelete={setNoteToDelete}
+            />
           ))
         ) : searchValue !== "" ? (
           <Typography variant="body1" sx={{ textAlign: "left", pl: 1 }}>
@@ -77,6 +84,11 @@ export default function NoteList({
         open={selectedNote !== null}
         onClose={() => setSelectedNote(null)}
         mode="edit"
+      />
+      <DeleteNoteDialog
+        note={noteToDelete}
+        open={noteToDelete !== null}
+        onClose={() => setNoteToDelete(null)}
       />
     </>
   );
