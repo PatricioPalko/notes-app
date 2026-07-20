@@ -27,6 +27,7 @@ export default function NoteForm({
     defaultValues,
   });
 
+  const title = watch("title") || "";
   const description = watch("description") || "";
 
   useEffect(() => {
@@ -51,6 +52,7 @@ export default function NoteForm({
         required
         maxLength={80}
         errorMessage={errors.title?.message}
+        helperText={errors.title?.message ?? `${title.length} / 100`}
         {...register("title", {
           required: "Title is required",
           maxLength: {

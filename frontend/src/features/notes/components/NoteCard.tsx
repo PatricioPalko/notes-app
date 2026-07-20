@@ -29,19 +29,11 @@ export default function NoteCard({ note, onEdit }: NoteCardProps) {
 
   const noteCategory = note.category || "Uncategorized";
 
-  const noteCreatedDate = new Date(note.createdAt).toLocaleDateString("sk", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-
   const noteUpdatedDate = new Date(note.updatedAt).toLocaleDateString("sk", {
     year: "numeric",
     month: "short",
     day: "numeric",
   });
-
-  const noteDate = !noteUpdatedDate ? noteCreatedDate : noteUpdatedDate;
 
   return (
     <Card
@@ -98,7 +90,7 @@ export default function NoteCard({ note, onEdit }: NoteCardProps) {
         }}
       >
         <Typography variant="body1" sx={{ color: "text.disabled" }}>
-          {noteDate}
+          {noteUpdatedDate}
         </Typography>
         <Box sx={{ display: "flex", gap: 1 }}>
           <NoteButton icon={<Edit />} onClick={() => onEdit(note)} />

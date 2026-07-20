@@ -58,10 +58,14 @@ export default function NoteList({
           pt: 3,
         }}
       >
-        {sortedNotes.length > 0 ? (
+        {sortedNotes.length > 0 && selectedCategories.length > 0 ? (
           sortedNotes.map((note: Note) => (
             <NoteCard key={note.id} note={note} onEdit={setSelectedNote} />
           ))
+        ) : searchValue !== "" ? (
+          <Typography variant="body1" sx={{ textAlign: "left", pl: 1 }}>
+            No notes found for "{searchValue}".
+          </Typography>
         ) : (
           <Typography variant="body1" sx={{ textAlign: "left", pl: 1 }}>
             No notes found for selected categories.
