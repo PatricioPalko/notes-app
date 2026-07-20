@@ -20,7 +20,7 @@ export const theme = createTheme({
       color: "#e20273",
     },
     h2: {
-      fontSize: "3.5em",
+      fontSize: "1.2em",
       fontWeight: "600",
       color: "#262626",
     },

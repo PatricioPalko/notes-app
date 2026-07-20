@@ -24,7 +24,7 @@ function App() {
       }}
     >
       <Container component="main" maxWidth="lg" sx={{ py: { xs: 3, md: 5 } }}>
-        <Typography component="h2" variant="h1" sx={{ mb: 2, fontWeight: 700 }}>
+        <Typography component="h1" variant="h1" sx={{ mb: 2, fontWeight: 700 }}>
           Notes app
         </Typography>
         <Typography variant="body1">

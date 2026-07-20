@@ -92,3 +92,8 @@ export interface NoteFilterProps {
   selectedCategories: NoteCategory[];
   onChange: (categories: NoteCategory[]) => void;
 }
+
+export interface NoteSearchProps {
+  searchValue: string;
+  onChange: (value: string) => void;
+}

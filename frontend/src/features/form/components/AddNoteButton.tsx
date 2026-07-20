@@ -26,6 +26,7 @@ export default function AddNoteButton({ onClick }: { onClick: () => void }) {
         }}
         variant="contained"
         onClick={onClick}
+        aria-label="Add note button"
       >
         <Add />
         <Typography

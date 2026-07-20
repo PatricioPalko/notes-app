@@ -37,7 +37,9 @@ export default function NoteFilter({
 
   return (
     <Box sx={{ pt: 6, px: 1, textAlign: "left" }}>
-      <Typography variant="h3">Note filter</Typography>
+      <Typography component="h2" variant="h2">
+        Note filter
+      </Typography>
 
       <FormGroup row>
         <FormControlLabel

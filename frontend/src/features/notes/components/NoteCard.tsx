@@ -47,6 +47,7 @@ export default function NoteCard({ note, onEdit }: NoteCardProps) {
         justifyContent: "space-between",
         p: 2,
       }}
+      component="article"
     >
       <CardContent sx={{ textAlign: "left", p: 0, pb: 3 }}>
         <Typography
@@ -75,6 +76,7 @@ export default function NoteCard({ note, onEdit }: NoteCardProps) {
         <Typography
           gutterBottom
           sx={{ color: "text.primary", fontWeight: 600 }}
+          component="h3"
           variant="h3"
         >
           {noteTitle}
@@ -93,8 +95,13 @@ export default function NoteCard({ note, onEdit }: NoteCardProps) {
           {noteUpdatedDate}
         </Typography>
         <Box sx={{ display: "flex", gap: 1 }}>
-          <NoteButton icon={<Edit />} onClick={() => onEdit(note)} />
           <NoteButton
+            aria-label="Edit note"
+            icon={<Edit />}
+            onClick={() => onEdit(note)}
+          />
+          <NoteButton
+            aria-label="Delete note"
             icon={<Delete />}
             onClick={() => handleDeleteNote(note.id)}
           />

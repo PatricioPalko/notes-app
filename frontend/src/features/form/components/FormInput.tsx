@@ -27,6 +27,7 @@ export default function FormInput({
           maxLength,
         },
       }}
+      label={props.label}
       sx={{
         mt: 2,
 

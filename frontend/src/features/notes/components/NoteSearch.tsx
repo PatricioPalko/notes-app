@@ -3,12 +3,8 @@ import { Box, IconButton, InputAdornment, Typography } from "@mui/material";
 import { debounce } from "@mui/material/utils";
 import { useEffect, useMemo, useState } from "react";
 
+import type { NoteSearchProps } from "../../../types/globals";
 import FormInput from "../../form/components/FormInput";
-
-interface NoteSearchProps {
-  searchValue: string;
-  onChange: (value: string) => void;
-}
 
 export default function NoteSearch({ searchValue, onChange }: NoteSearchProps) {
   const [inputValue, setInputValue] = useState(searchValue);
@@ -48,10 +44,13 @@ export default function NoteSearch({ searchValue, onChange }: NoteSearchProps) {
 
   return (
     <Box sx={{ pt: 6, px: 1, textAlign: "left" }}>
-      <Typography variant="h3">Note search</Typography>
+      <Typography component="h2" variant="h2">
+        Note search
+      </Typography>
 
       <Box sx={{ width: "100%", maxWidth: 360 }}>
         <FormInput
+          label="Search notes"
           type="search"
           value={inputValue}
           onChange={handleInputChange}

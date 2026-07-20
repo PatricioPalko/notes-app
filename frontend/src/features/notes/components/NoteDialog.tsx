@@ -66,13 +66,14 @@ export default function NoteDialog({
       }}
       fullWidth
       maxWidth="sm"
+      aria-labelledby="note-dialog-title"
     >
-      <DialogTitle sx={{ pr: 7, color: "text.primary" }}>
+      <DialogTitle sx={{ pr: 7, color: "text.primary" }} id="note-dialog-title">
         {mode === "edit" ? "Edit note" : "Add note"}
       </DialogTitle>
 
       <IconButton
-        aria-label="Close edit dialog"
+        aria-label="Close note dialog"
         disabled={isLoading}
         onClick={onClose}
         sx={{
