@@ -17,6 +17,7 @@ export default function NoteDialog({
   open,
   mode,
   onClose,
+  onSuccess,
 }: NoteDialogProps) {
   const [updateNote, { isLoading }] = useUpdateNoteMutation();
   const [addNote] = useAddNoteMutation();
@@ -42,8 +43,10 @@ export default function NoteDialog({
           id: note.id,
           values,
         }).unwrap();
+        onSuccess("Note updated successfully", "info");
       } else {
         await addNote(values).unwrap();
+        onSuccess("Note created successfully", "success");
       }
 
       onClose();

@@ -10,26 +10,15 @@ import {
 } from "@mui/material";
 
 import { useDeleteNoteMutation } from "../../../api/notesApi";
-import {
-  EMPTY_VALUES,
-  type DeleteNoteDialogProps,
-  type NoteFormValues,
-} from "../../../types/globals";
+import { type DeleteNoteDialogProps } from "../../../types/globals";
 
 export default function DeleteNoteDialog({
   note,
   open,
   onClose,
+  onSuccess,
 }: DeleteNoteDialogProps) {
   const [deleteNote, { isLoading }] = useDeleteNoteMutation();
-
-  const defaultValues: NoteFormValues = note
-    ? {
-        title: note.title,
-        description: note.description,
-        category: note.category,
-      }
-    : EMPTY_VALUES;
 
   const handleDelete = async (): Promise<void> => {
     try {
@@ -37,6 +26,7 @@ export default function DeleteNoteDialog({
         return;
       }
       await deleteNote(note.id).unwrap();
+      onSuccess("Note deleted successfully", "error");
 
       onClose();
     } catch (error) {
@@ -78,11 +68,6 @@ export default function DeleteNoteDialog({
       </DialogContent>
 
       <DialogActions>
-        {/* <Button onClick={onClose}>Cancel</Button>
-        <Button color="error" variant="contained" onClick={handleDelete}>
-          Delete
-        </Button> */}
-
         <Stack direction="row" spacing={1} sx={{ justifyContent: "flex-end" }}>
           <Button type="button" color="inherit" onClick={onClose}>
             Cancel

@@ -1,4 +1,4 @@
-import { Alert, CircularProgress, Typography } from "@mui/material";
+import { Alert, CircularProgress, Snackbar, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useState } from "react";
 import { useGetNotesQuery } from "../../../api/notesApi";
@@ -14,6 +14,18 @@ export default function NoteList({
   const { data: notes = [], isLoading, isError, refetch } = useGetNotesQuery();
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
   const [noteToDelete, setNoteToDelete] = useState<Note | null>(null);
+
+  const [showSnackbar, setShowSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState<string>("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState<"success" | "info">(
+    "success",
+  );
+
+  const handleShowSnackbar = (message: string, severity: string): void => {
+    setSnackbarMessage(message);
+    setSnackbarSeverity(severity as "success" | "info");
+    setShowSnackbar(true);
+  };
 
   if (isLoading) {
     return <CircularProgress />;
@@ -83,13 +95,32 @@ export default function NoteList({
         note={selectedNote}
         open={selectedNote !== null}
         onClose={() => setSelectedNote(null)}
+        onSuccess={(message: string, severity: "success" | "info") =>
+          handleShowSnackbar(message, severity)
+        }
         mode="edit"
       />
       <DeleteNoteDialog
         note={noteToDelete}
         open={noteToDelete !== null}
         onClose={() => setNoteToDelete(null)}
+        onSuccess={(message: string, severity: "error") =>
+          handleShowSnackbar(message, severity)
+        }
       />
+      <Snackbar
+        open={showSnackbar}
+        autoHideDuration={6000}
+        onClose={() => setShowSnackbar(false)}
+      >
+        <Alert
+          onClose={() => setShowSnackbar(false)}
+          severity={snackbarSeverity}
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </>
   );
 }

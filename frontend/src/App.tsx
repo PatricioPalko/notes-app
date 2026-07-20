@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Alert, Box, Container, Snackbar, Typography } from "@mui/material";
 import { useState } from "react";
 import AddNoteButton from "./features/form/components/AddNoteButton";
 import NoteDialog from "./features/notes/components/NoteDialog";
@@ -15,6 +15,18 @@ function App() {
   const [searchValue, setSearchValue] = useState<string>("");
   const handleOpenDialog = () => {
     setIsDialogOpen(true);
+  };
+
+  const [showSnackbar, setShowSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState<string>("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState<"success" | "info">(
+    "success",
+  );
+
+  const handleShowSnackbar = (message: string, severity: string): void => {
+    setSnackbarMessage(message);
+    setSnackbarSeverity(severity as "success" | "info");
+    setShowSnackbar(true);
   };
 
   return (
@@ -45,7 +57,23 @@ function App() {
           open={isDialogOpen}
           mode="add"
           onClose={() => setIsDialogOpen(false)}
+          onSuccess={(message: string, severity: "success" | "info") =>
+            handleShowSnackbar(message, severity)
+          }
         />
+        <Snackbar
+          open={showSnackbar}
+          autoHideDuration={6000}
+          onClose={() => setShowSnackbar(false)}
+        >
+          <Alert
+            onClose={() => setShowSnackbar(false)}
+            severity={snackbarSeverity}
+            sx={{ width: "100%" }}
+          >
+            {snackbarMessage}
+          </Alert>
+        </Snackbar>
       </Container>
     </Box>
   );

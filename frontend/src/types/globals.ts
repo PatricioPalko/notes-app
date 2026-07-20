@@ -82,6 +82,7 @@ export interface NoteDialogProps {
   open: boolean;
   mode: "edit" | "add";
   onClose: () => void;
+  onSuccess: (message: string, severity: "success" | "info") => void;
 }
 
 export interface NoteListProps {
@@ -103,4 +104,5 @@ export interface DeleteNoteDialogProps {
   note: Note | null;
   open: boolean;
   onClose: () => void;
+  onSuccess: (message: string, severity: "error") => void;
 }
