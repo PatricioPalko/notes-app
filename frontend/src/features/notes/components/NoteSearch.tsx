@@ -1,5 +1,7 @@
 import ClearIcon from "@mui/icons-material/Clear";
 import { Box, IconButton, InputAdornment, Typography } from "@mui/material";
+import { debounce } from "@mui/material/utils";
+import { useEffect, useMemo, useState } from "react";
 
 import FormInput from "../../form/components/FormInput";
 
@@ -9,6 +11,41 @@ interface NoteSearchProps {
 }
 
 export default function NoteSearch({ searchValue, onChange }: NoteSearchProps) {
+  const [inputValue, setInputValue] = useState(searchValue);
+
+  const debouncedOnChange = useMemo(
+    () =>
+      debounce((value: string) => {
+        onChange(value);
+      }, 300),
+    [onChange],
+  );
+
+  useEffect(() => {
+    return () => {
+      debouncedOnChange.clear();
+    };
+  }, [debouncedOnChange]);
+
+  useEffect(() => {
+    setInputValue(searchValue);
+  }, [searchValue]);
+
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void => {
+    const value = event.target.value;
+
+    setInputValue(value);
+    debouncedOnChange(value);
+  };
+
+  const handleClear = (): void => {
+    debouncedOnChange.clear();
+    setInputValue("");
+    onChange("");
+  };
+
   return (
     <Box sx={{ pt: 6, px: 1, textAlign: "left" }}>
       <Typography variant="h3">Note search</Typography>
@@ -16,18 +53,18 @@ export default function NoteSearch({ searchValue, onChange }: NoteSearchProps) {
       <Box sx={{ width: "100%", maxWidth: 360 }}>
         <FormInput
           type="search"
-          value={searchValue}
-          onChange={(event) => onChange(event.target.value)}
+          value={inputValue}
+          onChange={handleInputChange}
           placeholder="Search notes"
           slotProps={{
             input: {
-              endAdornment: searchValue ? (
+              endAdornment: inputValue ? (
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="Clear search"
                     edge="end"
                     size="small"
-                    onClick={() => onChange("")}
+                    onClick={handleClear}
                   >
                     <ClearIcon fontSize="small" />
                   </IconButton>
