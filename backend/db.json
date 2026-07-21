@@ -1,36 +1,29 @@
 {
   "notes": [
     {
-      "id": "1",
-      "title": "First note",
-      "description": "Example note",
-      "category": "work",
-      "createdAt": "2026-07-16T10:00:00.000Z",
-      "updatedAt": "2026-07-16T10:00:00.000Z"
-    },
-    {
-      "id": "2",
-      "title": "Second note",
-      "description": "Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London, took a 1914 Cicero translation and scrambled it to make dummy text for Letraset's Body Type sheets. It has survived not only many decades, but also the leap into electronic typesetting, remaining essentially unchanged.",
+      "title": "title 1",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London, took a 1914 Cicero translation and scrambled.",
       "category": "personal",
-      "createdAt": "2026-07-13T10:00:00.000Z",
-      "updatedAt": "2026-07-14T10:00:00.000Z"
+      "createdAt": "2026-07-21T18:50:35.371Z",
+      "updatedAt": "2026-07-21T18:50:35.371Z",
+      "id": "LrsnMOO7mGY"
     },
     {
-      "id": "3",
-      "title": "Lorem Ipsum has been the industry's standard dummy text ever since 1966",
-      "description": "Example note",
-      "category": "work",
-      "createdAt": "2026-07-16T10:00:00.000Z",
-      "updatedAt": "2026-07-16T10:00:00.000Z"
+      "title": "The standard Lorem Ipsum passage, used since 1966",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "category": "personal",
+      "createdAt": "2026-07-21T18:50:58.552Z",
+      "updatedAt": "2026-07-21T18:50:58.552Z",
+      "id": "L4BV64GwCQI"
     },
     {
-      "id": "4",
-      "title": "Fourth note",
-      "description": "Lorem Ipsum has been the industry's standard dummy text ever since 1966",
+      "title": "test title",
+      "description": "test description",
       "category": "work",
-      "createdAt": "2026-07-16T10:00:00.000Z",
-      "updatedAt": "2026-07-16T10:00:00.000Z"
+      "createdAt": "2026-07-21T18:51:54.134Z",
+      "updatedAt": "2026-07-21T18:51:54.134Z",
+      "id": "CB1tu48EinI"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

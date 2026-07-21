@@ -4,19 +4,16 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import type { NoteCardProps } from "../../../types/globals";
+import { NOTE_CATEGORIES, type NoteCardProps } from "../../../types/globals";
 import NoteButton from "./NoteButton";
 
 export default function NoteCard({ note, onEdit, onDelete }: NoteCardProps) {
   const noteTitle =
     note.title.length > 40 ? note.title.substring(0, 40) + "..." : note.title;
 
-  const noteDescription =
-    note.description.length > 200
-      ? note.description.substring(0, 200) + "..."
-      : note.description;
-
-  const noteCategory = note.category || "Uncategorized";
+  const noteCategory =
+    NOTE_CATEGORIES.find((category) => category.value === note.category)
+      ?.label ?? "Uncategorized";
 
   const noteUpdatedDate = new Date(note.updatedAt).toLocaleDateString("sk", {
     year: "numeric",
@@ -70,7 +67,18 @@ export default function NoteCard({ note, onEdit, onDelete }: NoteCardProps) {
         >
           {noteTitle}
         </Typography>
-        <Typography variant="body1">{noteDescription}</Typography>
+        <Typography
+          variant="body1"
+          title={note.description}
+          sx={{
+            display: "-webkit-box",
+            WebkitLineClamp: 4,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+          }}
+        >
+          {note.description}
+        </Typography>
       </CardContent>
       <CardActions
         sx={{

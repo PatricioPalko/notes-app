@@ -53,7 +53,7 @@ export default function NoteSearch({ searchValue, onChange }: NoteSearchProps) {
       <Box sx={{ width: "100%", maxWidth: 360 }}>
         <FormInput
           label="Search notes"
-          type="search"
+          type="text"
           value={inputValue}
           onChange={handleInputChange}
           placeholder="Search notes"
