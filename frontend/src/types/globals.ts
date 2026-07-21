@@ -12,18 +12,6 @@ export interface Note {
   updatedAt: string;
 }
 
-export interface FormInputProps {
-  placeholder: string;
-  type: string;
-  label: string;
-  multiline?: boolean;
-  rows?: number;
-  autoFocus?: boolean;
-  error?: boolean;
-  helperText?: string;
-  slotProps?: any;
-}
-
 export interface FormSelectProps {
   label: string;
   placeholder?: string;
@@ -82,7 +70,7 @@ export interface NoteDialogProps {
   open: boolean;
   mode: "edit" | "add";
   onClose: () => void;
-  onSuccess: (message: string, severity: "success" | "info") => void;
+  onSuccess: (message: string, severity: "success" | "info" | "error") => void;
 }
 
 export interface NoteListProps {
@@ -104,5 +92,5 @@ export interface DeleteNoteDialogProps {
   note: Note | null;
   open: boolean;
   onClose: () => void;
-  onSuccess: (message: string, severity: "error") => void;
+  onSuccess: (message: string, severity: "error" | "success") => void;
 }

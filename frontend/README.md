@@ -84,7 +84,6 @@ npm run lint
 ```text
 src/
 ├── api/
-├── app/
 ├── features/
 │   ├── form/
 │   └── notes/

@@ -85,12 +85,12 @@ export default function NoteCard({ note, onEdit, onDelete }: NoteCardProps) {
         </Typography>
         <Box sx={{ display: "flex", gap: 1 }}>
           <NoteButton
-            aria-label="Edit note"
+            ariaLabel="Edit note"
             icon={<Edit />}
             onClick={() => onEdit(note)}
           />
           <NoteButton
-            aria-label="Delete note"
+            ariaLabel="Delete note"
             icon={<Delete />}
             onClick={() => onDelete(note)}
           />

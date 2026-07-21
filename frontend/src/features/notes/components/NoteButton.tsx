@@ -2,9 +2,11 @@ import Button from "@mui/material/Button";
 
 export default function NoteButton({
   icon,
+  ariaLabel,
   onClick,
 }: {
   icon: React.ReactNode;
+  ariaLabel: string;
   onClick: () => void;
 }) {
   return (
@@ -28,6 +30,7 @@ export default function NoteButton({
       }}
       variant="outlined"
       onClick={onClick}
+      aria-label={ariaLabel}
     >
       {icon}
     </Button>

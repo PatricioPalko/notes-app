@@ -26,10 +26,11 @@ export default function DeleteNoteDialog({
         return;
       }
       await deleteNote(note.id).unwrap();
-      onSuccess("Note deleted successfully", "error");
+      onSuccess("Note deleted successfully", "success");
 
       onClose();
     } catch (error) {
+      onSuccess("Failed to delete note", "error");
       console.error("Failed to delete note:", error);
     }
   };
@@ -44,10 +45,13 @@ export default function DeleteNoteDialog({
       }}
       fullWidth
       maxWidth="sm"
-      aria-labelledby="note-dialog-title"
+      aria-labelledby="delete-note-dialog-title"
     >
-      <DialogTitle sx={{ pr: 7, color: "text.primary" }} id="note-dialog-title">
-        Detele note
+      <DialogTitle
+        sx={{ pr: 7, color: "text.primary" }}
+        id="delete-note-dialog-title"
+      >
+        Delete note
       </DialogTitle>
 
       <IconButton
@@ -78,6 +82,7 @@ export default function DeleteNoteDialog({
             variant="contained"
             sx={{ backgroundColor: "text.primary" }}
             onClick={handleDelete}
+            disabled={isLoading}
           >
             Delete note
           </Button>

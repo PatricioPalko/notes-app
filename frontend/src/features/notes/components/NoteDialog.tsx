@@ -20,7 +20,7 @@ export default function NoteDialog({
   onSuccess,
 }: NoteDialogProps) {
   const [updateNote, { isLoading }] = useUpdateNoteMutation();
-  const [addNote] = useAddNoteMutation();
+  const [addNote, { isLoading: isAdding }] = useAddNoteMutation();
 
   const isEditMode = mode === "edit";
 
@@ -53,8 +53,10 @@ export default function NoteDialog({
     } catch (error) {
       if (isEditMode) {
         console.error("Failed to update note:", error);
+        onSuccess("Failed to update note", "error");
       } else {
         console.error("Failed to add note:", error);
+        onSuccess("Failed to add note", "error");
       }
     }
   };
@@ -63,7 +65,7 @@ export default function NoteDialog({
     <Dialog
       open={open}
       onClose={() => {
-        if (!isLoading) {
+        if (!isLoading && !isAdding) {
           onClose();
         }
       }}
@@ -77,7 +79,7 @@ export default function NoteDialog({
 
       <IconButton
         aria-label="Close note dialog"
-        disabled={isLoading}
+        disabled={isLoading || isAdding}
         onClick={onClose}
         sx={{
           position: "absolute",
@@ -92,8 +94,8 @@ export default function NoteDialog({
         <NoteForm
           key={note?.id}
           defaultValues={defaultValues}
-          submitLabel="Save changes"
-          isSubmitting={isLoading}
+          submitLabel={isEditMode ? "Update note" : "Create note"}
+          isSubmitting={isLoading || isAdding}
           onCancel={onClose}
           onSubmit={handleSubmit}
         />

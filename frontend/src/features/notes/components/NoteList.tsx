@@ -17,13 +17,13 @@ export default function NoteList({
 
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState<string>("");
-  const [snackbarSeverity, setSnackbarSeverity] = useState<"success" | "info">(
-    "success",
-  );
+  const [snackbarSeverity, setSnackbarSeverity] = useState<
+    "success" | "info" | "error"
+  >("success");
 
   const handleShowSnackbar = (message: string, severity: string): void => {
     setSnackbarMessage(message);
-    setSnackbarSeverity(severity as "success" | "info");
+    setSnackbarSeverity(severity as "success" | "info" | "error");
     setShowSnackbar(true);
   };
 
@@ -95,7 +95,7 @@ export default function NoteList({
         note={selectedNote}
         open={selectedNote !== null}
         onClose={() => setSelectedNote(null)}
-        onSuccess={(message: string, severity: "success" | "info") =>
+        onSuccess={(message: string, severity: "success" | "info" | "error") =>
           handleShowSnackbar(message, severity)
         }
         mode="edit"
@@ -104,7 +104,7 @@ export default function NoteList({
         note={noteToDelete}
         open={noteToDelete !== null}
         onClose={() => setNoteToDelete(null)}
-        onSuccess={(message: string, severity: "error") =>
+        onSuccess={(message: string, severity: "error" | "success") =>
           handleShowSnackbar(message, severity)
         }
       />

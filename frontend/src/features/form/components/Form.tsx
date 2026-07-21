@@ -1,6 +1,11 @@
 import { Button, Stack } from "@mui/material";
 import { useEffect } from "react";
-import { Controller, type SubmitHandler, useForm } from "react-hook-form";
+import {
+  Controller,
+  type SubmitHandler,
+  useForm,
+  useWatch,
+} from "react-hook-form";
 import {
   EMPTY_VALUES,
   NOTE_CATEGORIES,
@@ -15,20 +20,22 @@ export default function NoteForm({
   submitLabel = "Create note",
   onSubmit,
   onCancel,
+  isSubmitting: isSubmittingProp = false,
 }: NoteFormProps) {
   const {
     control,
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
-    watch,
+    formState: { errors, isSubmitting: isFormSubmitting },
   } = useForm<NoteFormValues>({
     defaultValues,
   });
 
-  const title = watch("title") || "";
-  const description = watch("description") || "";
+  const isSubmitting = isSubmittingProp || isFormSubmitting;
+
+  const title = useWatch({ control, name: "title" }) || "";
+  const description = useWatch({ control, name: "description" }) || "";
 
   useEffect(() => {
     reset(defaultValues);
@@ -50,7 +57,7 @@ export default function NoteForm({
         label="Title"
         autoFocus
         required
-        maxLength={80}
+        maxLength={100}
         errorMessage={errors.title?.message}
         helperText={errors.title?.message ?? `${title.length} / 100`}
         {...register("title", {

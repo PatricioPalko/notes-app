@@ -8,6 +8,12 @@ import FormInput from "../../form/components/FormInput";
 
 export default function NoteSearch({ searchValue, onChange }: NoteSearchProps) {
   const [inputValue, setInputValue] = useState(searchValue);
+  const [prevSearchValue, setPrevSearchValue] = useState(searchValue);
+
+  if (searchValue !== prevSearchValue) {
+    setPrevSearchValue(searchValue);
+    setInputValue(searchValue);
+  }
 
   const debouncedOnChange = useMemo(
     () =>
@@ -22,10 +28,6 @@ export default function NoteSearch({ searchValue, onChange }: NoteSearchProps) {
       debouncedOnChange.clear();
     };
   }, [debouncedOnChange]);
-
-  useEffect(() => {
-    setInputValue(searchValue);
-  }, [searchValue]);
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,

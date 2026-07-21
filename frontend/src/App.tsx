@@ -19,13 +19,13 @@ function App() {
 
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState<string>("");
-  const [snackbarSeverity, setSnackbarSeverity] = useState<"success" | "info">(
-    "success",
-  );
+  const [snackbarSeverity, setSnackbarSeverity] = useState<
+    "success" | "info" | "error"
+  >("success");
 
   const handleShowSnackbar = (message: string, severity: string): void => {
     setSnackbarMessage(message);
-    setSnackbarSeverity(severity as "success" | "info");
+    setSnackbarSeverity(severity as "success" | "info" | "error");
     setShowSnackbar(true);
   };
 
@@ -57,9 +57,10 @@ function App() {
           open={isDialogOpen}
           mode="add"
           onClose={() => setIsDialogOpen(false)}
-          onSuccess={(message: string, severity: "success" | "info") =>
-            handleShowSnackbar(message, severity)
-          }
+          onSuccess={(
+            message: string,
+            severity: "success" | "info" | "error",
+          ) => handleShowSnackbar(message, severity)}
         />
         <Snackbar
           open={showSnackbar}
